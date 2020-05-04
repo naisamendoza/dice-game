@@ -1,0 +1,160 @@
+/*base-color - #ff199c*/
+
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;600&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-image: url('image/pastel.jpg');
+    background-position: center;
+    background-size: cover;
+    height: 100vh;
+
+    font-family: Lato, Arial, sans-serif;
+    font-size: 20px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: 800px;
+    height: 450px;
+    display: flex;
+    position: relative;
+    background-color: #fff;
+    box-shadow: 0 10px 50px 10px rgba(0, 0, 0, 0.5);
+}
+
+[class*="player--"] {
+    flex: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.active {
+    background-color: #f2f2f2;
+}
+
+.active [class*="player__title--"] h1 {
+    font-weight: 400;
+}
+
+[class*="player__title--"] {
+    position: relative;
+}
+
+[class*="player__title--"] h1 {
+    font-size: 150%;
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-top: 100px;
+
+    display: flex;
+    align-items: center;
+}
+
+.active [class*="player__turn--"] {
+    border: 5px solid #ff199c;
+    border-radius: 50%;
+    margin-left: 10px;
+
+    position: absolute;
+    left: 100%;
+    bottom: 10%;
+}
+
+.player__dice {
+    font-size: 350%;
+    font-weight: 100;
+    color: #ff199c;
+}
+
+[class*="player__box--"] {
+    background-color: #ff199c;
+    padding: 10px;
+    margin-top: auto;
+    margin-bottom: 80px;
+}
+
+.player__score--1 {
+    font-size: 70%;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.player__score--2 {
+    font-size: 130%;
+    text-align: center;
+    color: #fff;
+    font-weight: 300;
+    margin-top: 5px;
+}
+
+.icon-sml {
+    font-size: 150%;
+    color: #ff199c;
+    margin-right: 10px;
+    transition: margin 0.2s;
+}
+
+[class*="control__"] {
+position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+button {
+    display: flex;
+    align-items: center;
+
+    border: none;
+    background: none;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: #555;
+    font-weight: 300;
+    font-size: 80%;
+}
+
+button:focus {
+    outline: none;
+}
+
+button:hover {
+    font-weight: 600;
+}
+
+[class*="control__"]:hover .icon-sml {
+    margin-right: 15px;
+}
+
+.control__reset {
+    top: 10%;
+}
+
+.control__roll {
+    top: 65%;
+}
+
+.control__hold {
+    top: 75%;
+}
+
+.control__dice {
+    display: none;
+    top:50%;
+    transform: translate(-50%, -100%);
+    box-shadow: 0 5px 10px 5px rgba(0, 0, 0, 0.1);
+}
+
+.control__dice img {
+    width: 100px;
+}

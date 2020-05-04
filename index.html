@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <link rel="stylesheet" type="text/css" href="resources/css/style.css" />
+        <link rel="stylesheet" type="text/css" href="vendor/css/ionicons.min.css" />
+        <link rel="stylesheet" type="text/css" href="vendor/css/animate.css" />
+
+        <title>Pig Game</title>
+    </head>
+
+    <body>
+        <div class="container">
+            <div class="player--1 active">
+                <div class="player__title--1">
+                    <h1>Player 1</h1>
+                    <div class="player__turn--1"></div>
+                </div>
+                <div class="player__dice">0</div>
+                <div class="player__box--1">
+                    <div class="player__score--1">current</div>
+                    <div class="player__score--2">0</div>
+                </div>
+            </div>
+
+            <div class="player--2">
+                <div class="player__title--2">
+                    <h1>Player 2</h1>
+                    <div class="player__turn--2"></div>
+                </div>
+                <div class="player__dice">0</div>
+                <div class="player__box--2">
+                    <div class="player__score--1">current</div>
+                    <div class="player__score--2">0</div>
+                </div>
+            </div>
+
+            <div class="controls">
+                <div class="control__reset"><button><i class="ion-ios-plus-outline icon-sml"></i>new game</button></div>
+                <div class="control__dice"><img src="resources/img/dice-1.png" alt="dice" /></div>
+                <div class="control__roll"><button><i class="ion-ios-loop icon-sml"></i>roll dice</button></div>
+                <div class="control__hold"><button><i class="ion-ios-download-outline icon-sml"></i>hold</button></div>
+            </div>
+        </div>
+
+        <script src="resources/js/app.js"></script>
+    </body>
+</html>
