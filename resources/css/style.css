@@ -153,12 +153,25 @@ button:hover {
 }
 
 .control__dice {
-    display: none;
     top:50%;
     transform: translate(-50%, -100%);
     box-shadow: 0 5px 10px 5px rgba(0, 0, 0, 0.1);
 }
 
+.hide {
+    display: none;
+}
+
 .control__dice img {
     width: 70px;
+}
+
+.winner {
+    font-weight: 400;
+    background-color: #f2f2f2;
+}
+
+.winner h1 {
+    font-weight: 400;
+    color: #ff199c;
 }
