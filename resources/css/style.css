@@ -175,3 +175,20 @@ button:hover {
     font-weight: 400;
     color: #ff199c;
 }
+
+.disabled:hover {
+    font-weight: 300;
+    cursor: not-allowed;
+}
+
+.disabled .icon-sml {
+    transition: none;
+}
+
+[class*="control__"]:hover .disabled .icon-sml {
+    margin-right: 10px;
+}
+
+.disabled {  
+    color: #aaa;
+}
