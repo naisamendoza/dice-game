@@ -40,7 +40,7 @@ document.querySelector('.control__roll').addEventListener('click', function() {
         diceDOM.classList.remove('animated', 'wobble');
     }, 1000);
 
-    if (dice === 1) {
+    if (dice <= 1) {
         alert('Oops! You lose.');
         activeScore.textContent = roundScore = 0;
         checkActive();
