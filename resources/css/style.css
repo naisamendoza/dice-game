@@ -23,6 +23,11 @@ body {
     align-items: center;
 }
 
+.main-container {
+    display: flex;
+    flex-direction: column;
+}
+
 .container {
     width: 800px;
     height: 450px;
@@ -116,6 +121,15 @@ position: absolute;
     transform: translateX(-50%);
 }
 
+#dice-0 {
+    left: 43%;
+}
+
+#dice-1 {
+    left: 57%;
+    animation-direction: reverse;
+}
+
 button {
     display: flex;
     align-items: center;
@@ -152,18 +166,31 @@ button:hover {
     top: 75%;
 }
 
+.control__score {
+    top: 85%;
+}
+
 .control__dice {
     top:50%;
     transform: translate(-50%, -100%);
     box-shadow: 0 5px 10px 5px rgba(0, 0, 0, 0.1);
 }
 
-.hide {
-    display: none;
+.control__dice img {
+    display: block;
+    width: 70px;
 }
 
-.control__dice img {
-    width: 70px;
+.control__score input {
+    padding: 5px;
+    text-transform: uppercase;
+    text-align: center;
+    border: 2px solid #e3e3e3;
+    border-radius: 5px;
+}
+
+.hide {
+    display: none;
 }
 
 .winner {

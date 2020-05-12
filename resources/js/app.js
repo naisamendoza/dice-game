@@ -1,8 +1,8 @@
 /*eslint-env browser*/
 /*jshint esnext: true */
-var scores, roundScore, activePlayer, gamePlaying;
+var scores, roundScore, activePlayer, gamePlaying, previousRoll;
 
-var diceDOM = document.querySelector('.control__dice');
+var diceDOM = document.querySelectorAll('.control__dice');
 var player1 = document.querySelector('.player--1');
 var player2 = document.querySelector('.player--2');
 
@@ -13,9 +13,10 @@ function init() {
     roundScore = 0;
     activePlayer = 0;
     gamePlaying = true;
+    previousRoll = [0, 0];
     
-    if (!player1.classList.contains('hide'))
-        diceDOM.classList.add('hide');
+    if (!diceDOM[0].classList.contains('hide'))
+        diceDOM.forEach((el) => el.classList.add('hide'));
     
     if (!player1.classList.contains('active')) {
         player1.classList.add('active');
@@ -36,36 +37,60 @@ function init() {
 function switchPlayer() {
     document.querySelector('.active .player__score--2').textContent = roundScore = 0;
     
+    previousRoll = [0, 0];
     player1.classList.toggle('active');
     player2.classList.toggle('active');    
     activePlayer = activePlayer === 0 ? 1 : 0;
+    diceDOM.forEach((el) => el.classList.add('hide'));
 }
 
 /* roll dice */
 
 document.querySelector('.control__roll').addEventListener('click', function() {
     if (gamePlaying) {
-        var dice = Math.floor(Math.random() * 6) + 1;
-        document.querySelector('.control__dice img').setAttribute('src', 'resources/img/dice-' + dice + '.png');
+        var dice, isLoseCurrentScore;
+        dice = [Math.floor(Math.random() * 6) + 1, Math.floor(Math.random() * 6) + 1];
+        isLoseCurrentScore = false;
         
-        if (diceDOM.classList.contains('hide'))
-            diceDOM.classList.remove('hide');
+        for(let [i, die] of dice.entries()) {
+            document.querySelector('#dice-' + i + ' img').setAttribute('src', 'resources/img/dice-' + die + '.png');   
+            if (i === 1 && (dice[0] === 1 ^ die === 1))
+                isLoseCurrentScore = true;    
+        
+            roundScore += die;
+        }
+        
+        if (diceDOM[0].classList.contains('hide'))
+            diceDOM.forEach((el) => el.classList.remove('hide'));
         
         //add animation
-        diceDOM.classList.add('animated', 'wobble');
+        diceDOM.forEach((el) => el.classList.add('animated', 'wobble'));
         setTimeout(function() {
-            diceDOM.classList.remove('animated', 'wobble');
+            diceDOM.forEach((el) => el.classList.remove('animated', 'wobble'));
         }, 500);
 
-        //if dice is greater than 1 continue game else pass active player to opponent and set current score to 0
-        if (dice > 1) {
-            roundScore += dice;
-            document.querySelector('.active .player__score--2').textContent = roundScore;
-        } else {
-            alert('Oops! You lose all your current score.');
-            switchPlayer();
-            diceDOM.classList.add('hide');
+        //compare previous roll to current [6, 6] [6, 6]
+        roll6: for (let previousDie of previousRoll) {
+            if (previousDie === 6) {
+                for (let die of dice) {
+                    if (die === 6) {
+                        alert('Oops! You\'ve rolled 6 twice in a row. You lose all your total score.');
+                        document.querySelector('.active .player__dice').textContent = 0;
+                        switchPlayer();
+                        break roll6;
+                    }
+                }
+            }
         }
+        previousRoll = dice;
+        
+        //if once of the die is equal 1, pass active player to opponent and set current score to 0
+        if (isLoseCurrentScore) {
+            alert('Oops! One of the dice is 1. You lose all your current score.');
+            switchPlayer();
+        } else 
+            document.querySelector('.active .player__score--2').textContent = roundScore;
+
     }
 });
 
@@ -73,12 +98,24 @@ document.querySelector('.control__roll').addEventListener('click', function() {
 
 document.querySelector('.control__hold').addEventListener('click', function() {
     if (gamePlaying) {
+        var input, winningScore;
         //add current to total score
         scores[activePlayer] += roundScore;
         document.querySelector('.active .player__dice').textContent = scores[activePlayer];
+        
+        input = document.getElementById('winning-score').value;
+        
+        if (input) 
+            winningScore = input;
+        else 
+            winningScore = 100;
 
         //check if current player wins
-        if(scores[activePlayer] >= 100) {
+        if(scores[activePlayer] >= winningScore) {
+            if (scores[0] > scores[1])
+                activePlayer = 0;
+            else
+                activePlayer = 1;
             var playerNumber = (activePlayer + 1);
             var winner = document.querySelector('.player--' + playerNumber);
 
@@ -90,11 +127,8 @@ document.querySelector('.control__hold').addEventListener('click', function() {
             winner.classList.remove('active');
             winner.classList.add('winner');
             gamePlaying = false;
-        } else
-           switchPlayer(); 
-        
-        if (!player1.classList.contains('hide'))
-            diceDOM.classList.add('hide');
+        } else 
+            switchPlayer(); 
     }
 });
 
